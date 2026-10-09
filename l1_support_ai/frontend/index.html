@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ResolveAI | L1 Support Assistant</title>
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand"><div class="brand-mark">R</div><div><strong>ResolveAI</strong><small>IT SUPPORT ASSISTANT</small></div></div>
+      <div class="nav-label">WORKSPACE</div>
+      <button class="nav-item active"><span>▦</span> Overview</button>
+      <button class="nav-item" id="allTicketsNav"><span>▤</span> All tickets <span class="nav-count" id="navCount">0</span></button>
+      <div class="sidebar-bottom"><div class="status-dot"></div><div><strong>System operational</strong><small>Local demo environment</small></div></div>
+    </aside>
+    <main class="main-content">
+      <header class="topbar"><div><div class="eyebrow">SUPPORT WORKSPACE / OVERVIEW</div><h1>Good morning, Support Team</h1><p>Here’s what’s happening across your support queue.</p></div><div class="top-actions"><button class="secondary-btn" id="syncGmailBtn">↻ Sync Gmail</button><span class="demo-pill"><span></span> ENGINEER REVIEW</span><div class="avatar">IT</div></div></header>
+      <section class="stats-grid">
+        <article class="stat-card"><div class="stat-top"><span>Total tickets</span><span class="stat-icon blue">▤</span></div><div class="stat-value" id="totalCount">—</div><div class="stat-foot">All recorded support requests</div></article>
+        <article class="stat-card"><div class="stat-top"><span>Open tickets</span><span class="stat-icon amber">◷</span></div><div class="stat-value" id="openCount">—</div><div class="stat-foot">Awaiting further action</div></article>
+        <article class="stat-card"><div class="stat-top"><span>High priority</span><span class="stat-icon red">↑</span></div><div class="stat-value" id="highCount">—</div><div class="stat-foot">Review these first</div></article>
+        <article class="stat-card"><div class="stat-top"><span>Resolved</span><span class="stat-icon green">✓</span></div><div class="stat-value" id="resolvedCount">—</div><div class="stat-foot">Marked resolved by support</div></article>
+      </section>
+      <section class="content-grid">
+        <article class="panel tickets-panel"><div class="panel-heading"><div><h2>Support tickets</h2><p>Review issues and AI-generated troubleshooting suggestions.</p></div><button class="primary-btn" id="newTicketBtn">＋ New ticket</button></div>
+          <div class="toolbar"><label class="search-box"><span>⌕</span><input id="searchInput" type="search" placeholder="Search tickets, users, issues…"></label><select id="statusFilter" aria-label="Filter by status"><option value="All">All statuses</option><option>Open</option><option>In Progress</option><option>Resolved</option><option>Escalated</option></select></div>
+          <div class="table-wrap"><table><thead><tr><th>TICKET</th><th>ISSUE</th><th>PRIORITY</th><th>STATUS</th><th></th></tr></thead><tbody id="ticketRows"><tr><td colspan="5" class="loading">Loading tickets…</td></tr></tbody></table></div>
+          <div class="table-footer"><span id="resultCount">Loading…</span><button class="text-btn" id="refreshBtn">↻ Refresh</button></div>
+        </article>
+        <aside class="panel insight-panel"><div class="insight-title"><div class="ai-icon">✳</div><div><h2>AI Support Insights</h2><p>Pattern-based demo analysis</p></div></div><div class="insight-callout"><span class="callout-label">QUICK TIP</span><p>Include the exact error message, affected device or application, and when the issue started. Better details help the assistant suggest more relevant fixes.</p></div><h3>Workflow overview</h3><div class="workflow"><div class="workflow-step"><div class="step-icon">✉</div><div><strong>1. Receive</strong><small>Collect the user’s issue</small></div></div><div class="workflow-line"></div><div class="workflow-step"><div class="step-icon violet">✳</div><div><strong>2. Analyze</strong><small>Classify symptoms and suggest checks</small></div></div><div class="workflow-line"></div><div class="workflow-step"><div class="step-icon green">✓</div><div><strong>3. Resolve or escalate</strong><small>Record the outcome and next step</small></div></div></div><div class="notice"><strong>Human approval required</strong><p>Gmail sync imports unread inbox messages for review. Analysis uses the optional AI API if configured, otherwise local rules. No reply is sent unless the engineer clicks Send reply.</p></div></aside>
+      </section>
+      <footer>ResolveAI · L1 Support Automation Prototype <span>Built for a safer, faster service desk</span></footer>
+    </main>
+  </div>
+  <div class="modal-backdrop hidden" id="ticketModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle"><div class="modal"><div class="modal-header"><div><div class="eyebrow">SUPPORT WORKSPACE</div><h2 id="modalTitle">Create support ticket</h2></div><button class="icon-btn" id="closeModal" aria-label="Close">×</button></div><form id="ticketForm"><label>Requester email<input name="requester" type="email" placeholder="name@company.com" required maxlength="120"></label><label>Issue subject<input name="subject" placeholder="e.g. Unable to connect to VPN" required minlength="3" maxlength="200"></label><label>Describe the issue<textarea name="description" rows="5" placeholder="Include the error message, affected device or application, and what you have tried…" required minlength="5" maxlength="10000"></textarea></label><p class="form-hint">The starter analyzer uses local rules to suggest a category and next steps. It does not confirm the actual root cause.</p><div class="form-actions"><button type="button" class="secondary-btn" id="cancelModal">Cancel</button><button type="submit" class="primary-btn" id="submitTicket">Analyze & create ticket</button></div><div id="formError" class="form-error"></div></form></div></div>
+  <div class="modal-backdrop hidden" id="detailModal" role="dialog" aria-modal="true" aria-labelledby="detailTitle"><div class="modal detail-modal"><div class="modal-header"><div><div class="eyebrow" id="detailTicketId">TICKET</div><h2 id="detailTitle">Ticket details</h2></div><button class="icon-btn" id="closeDetail" aria-label="Close">×</button></div><div id="ticketDetail"></div></div></div>
+  <div class="toast" id="toast" role="status"></div>
+  <script src="/static/app.js"></script>
+</body></html>
