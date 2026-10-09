@@ -310,4 +310,4 @@ def send_ticket_reply(ticket_id: int, reply: ReplyRequest):
 def home():
     return FileResponse(BASE_DIR / "frontend" / "index.html")
 
-app.mount("/static", StaticFiles(directory=BASE_DIR / "frontend"), name="static")
+app.mount("/static", StaticFiles(directory=BASE_DIR), name="static")
