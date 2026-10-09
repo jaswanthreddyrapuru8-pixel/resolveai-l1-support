@@ -35,10 +35,17 @@ class ReplyRequest(BaseModel):
 ALLOWED_STATUSES = {"Open", "In Progress", "Resolved", "Escalated", "Waiting for User"}
 
 
+
 def connect_db():
-    conn = sqlite3.connect(DB_PATH)
-    conn.row_factory = sqlite3.Row
-    return conn
+    try:
+        os.makedirs("/tmp", exist_ok=True)
+        conn = sqlite3.connect(DB_PATH)
+        conn.row_factory = sqlite3.Row
+        return conn
+    except Exception as exc:
+        print(f"Database connection failed. DB_PATH={DB_PATH!r}; error={exc!r}")
+        raise
+
 
 
 def initialize_db():
