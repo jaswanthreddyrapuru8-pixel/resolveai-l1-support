@@ -307,7 +307,11 @@ def send_ticket_reply(ticket_id: int, reply: ReplyRequest):
     return {"sent": True, "ticket": row_to_dict(row), "message": "Engineer-approved reply sent via Gmail."}
 
 @app.get("/")
-def home():
-    return FileResponse(BASE_DIR / "frontend" / "index.html")
+async def home():
+    return FileResponse(BASE_DIR / "index.html")
 
-app.mount("/static", StaticFiles(directory=BASE_DIR), name="static")
+app.mount(
+    "/static",
+    StaticFiles(directory=BASE_DIR),
+    name="static"
+)
