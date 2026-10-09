@@ -1,7 +1,7 @@
+import os
 from pathlib import Path
 import base64
 import json
-import os
 import sqlite3
 from datetime import datetime, timezone
 from email import message_from_bytes
@@ -16,7 +16,7 @@ from fastapi.responses import FileResponse
 from pydantic import BaseModel, Field
 
 BASE_DIR = Path(__file__).resolve().parent
-DB_PATH = BASE_DIR / "support.db"
+DB_PATH = os.environ.get("DB_PATH", "/tmp/resolveai.db")
 GOOGLE_CREDENTIALS = BASE_DIR / "credentials.json"
 GOOGLE_TOKEN = BASE_DIR / "token.json"
 app = FastAPI(title="ResolveAI — AI L1 Support Assistant", version="0.2.0")
